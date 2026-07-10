@@ -1,0 +1,160 @@
+TITLE
+
+AFLATOXIN IN GRAINS AND GROUNDNUTS (Produced by Aspergillus flavus and Aspergillus parasiticus)
+
+TABLE OF CONTENTS
+
+1. Introduction
+2. Definition of Aflatoxin
+3. Causative Organisms
+4. Types of Aflatoxins
+5. Sources of Contamination
+6. Conditions Favoring Aflatoxin Production
+7. Crops Commonly Affected
+8. Signs of Contamination
+9. Health Effects on Humans
+10. Effects on Livestock
+11. Economic Impact
+12. Detection Methods
+13. Prevention and Control Measures
+14. Storage Practices
+15. Regulatory Standards
+16. Aflatoxin in Nigeria
+17. Recommendations
+18. Conclusion
+19. References
+
+INTRODUCTION
+
+Aflatoxins are naturally occurring toxic substances produced by molds, mainly Aspergillus flavus and Aspergillus parasiticus. These fungi contaminate food crops such as maize, groundnuts, rice, sorghum, millet, beans, and other cereals. They thrive in warm and humid climates, making countries like Nigeria particularly vulnerable to aflatoxin contamination. Aflatoxins are among the most dangerous food contaminants because they threaten food safety, public health, livestock production, and international trade.
+
+DEFINITION OF AFLATOXIN
+
+Aflatoxins are poisonous secondary metabolites produced by Aspergillus fungi during their growth on susceptible crops. They are colorless, odorless, tasteless, and heat-stable, meaning they are not completely destroyed during normal cooking or food processing. Because of their toxicity, aflatoxins are classified as major foodborne hazards worldwide.
+
+CAUSATIVE ORGANISMS
+
+The primary fungi responsible for aflatoxin production are Aspergillus flavus and Aspergillus parasiticus. Aspergillus flavus mainly produces aflatoxins B1 and B2, while Aspergillus parasiticus produces B1, B2, G1, and G2. These fungi naturally occur in soil, dust, plant debris, and storage facilities and can infect crops before harvest and after harvest.
+
+TYPES OF AFLATOXINS
+
+The major aflatoxins include:
+• Aflatoxin B1 (AFB1)
+• Aflatoxin B2 (AFB2)
+• Aflatoxin G1 (AFG1)
+• Aflatoxin G2 (AFG2)
+• Aflatoxin M1 (AFM1)
+• Aflatoxin M2 (AFM2)
+
+Among these, Aflatoxin B1 is the most toxic and is classified as a Group 1 human carcinogen.
+
+SOURCES OF CONTAMINATION
+
+Contamination can occur:
+• Before harvest
+• During harvesting
+• During drying
+• During transportation
+• During storage
+• During processing
+
+CONDITIONS FAVORING AFLATOXIN PRODUCTION
+
+• Moisture content above 14%
+• Temperature between 25°C and 35°C
+• High relative humidity
+• Poor storage conditions
+• Delayed drying after harvest
+• Insect damage
+• Mechanical damage to grains
+• Poor sanitation
+
+CROPS COMMONLY AFFECTED
+
+• Maize
+• Groundnuts
+• Sorghum
+• Millet
+• Rice
+• Wheat
+• Beans
+• Soybeans
+• Cottonseed
+• Animal feed
+
+SIGNS OF CONTAMINATION
+
+• Yellow-green mold
+• Black discoloration
+• Musty odor
+• Broken kernels
+• Shriveled grains
+• Caking during storage
+
+HEALTH EFFECTS ON HUMANS
+
+Acute effects include vomiting, abdominal pain, liver damage, and liver failure.
+
+Chronic exposure may cause liver cancer, immune suppression, childhood stunting, poor nutrition, reduced productivity, and increased susceptibility to diseases.
+
+EFFECTS ON LIVESTOCK
+
+Animals consuming contaminated feed may experience poor growth, reduced milk production, reduced egg production, infertility, liver damage, weakened immunity, and death in severe cases.
+
+ECONOMIC IMPACT
+
+Aflatoxin contamination causes reduced crop value, rejection of export commodities, financial losses to farmers, reduced livestock productivity, increased healthcare costs, and food insecurity.
+
+DETECTION METHODS
+
+• ELISA
+• High Performance Liquid Chromatography (HPLC)
+• Liquid Chromatography-Mass Spectrometry (LC-MS/MS)
+• Lateral Flow Assays
+• Thin Layer Chromatography (TLC)
+• Fluorometric Analysis
+
+PREVENTION AND CONTROL
+
+• Harvest crops at maturity.
+• Dry grains immediately after harvest.
+• Reduce moisture below 10–13% before storage.
+• Use hermetic storage bags.
+• Maintain clean storage facilities.
+• Remove moldy and damaged grains.
+• Control insects and rodents.
+• Inspect stored grains regularly.
+• Apply Good Agricultural Practices (GAP), Good Manufacturing Practices (GMP), and HACCP principles.
+
+STORAGE PRACTICES
+
+Store grains in cool, dry, and well-ventilated warehouses. Keep produce off the floor using pallets. Avoid mixing old stock with newly harvested grains. Monitor temperature and moisture regularly.
+
+REGULATORY STANDARDS
+
+Organizations such as Codex Alimentarius, NAFDAC, the United States Food and Drug Administration (FDA), and the European Union have established maximum permissible limits for aflatoxins in food and feed to protect public health.
+
+AFLATOXIN IN NIGERIA
+
+Nigeria is one of the countries highly affected by aflatoxin contamination because of its tropical climate. Maize and groundnuts are the most commonly contaminated crops. Improving farmer education, storage facilities, and routine testing is essential to reduce contamination.
+
+RECOMMENDATIONS
+
+• Educate farmers on proper drying and storage.
+• Encourage regular aflatoxin testing.
+• Promote the use of improved storage technologies.
+• Strengthen food safety regulations.
+• Increase public awareness.
+• Support research and innovation.
+
+CONCLUSION
+
+Aflatoxin contamination remains a major food safety challenge worldwide. Proper harvesting, drying, storage, monitoring, and laboratory testing are critical in reducing contamination. Collaboration among farmers, processors, researchers, regulatory agencies, and consumers is necessary to ensure safe food and protect public health.
+
+REFERENCES
+
+• Food and Agriculture Organization (FAO).
+• World Health Organization (WHO).
+• Codex Alimentarius Commission.
+• NAFDAC Food Safety Guidelines.
+• International Agency for Research on Cancer (IARC).
