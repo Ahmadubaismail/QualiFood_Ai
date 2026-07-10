@@ -1,0 +1,401 @@
+Hazard Analysis and Critical Control Points (HACCP) – Detailed Notes
+
+Introduction
+
+Hazard Analysis and Critical Control Points (HACCP) is a systematic, science-based food safety management system designed to identify, evaluate, and control biological, chemical, and physical hazards throughout the food production process. Rather than relying solely on testing finished products, HACCP focuses on preventing hazards before they occur. This preventive approach helps ensure that food is safe for consumers.
+
+The HACCP system was originally developed in the 1960s through a collaboration between the Pillsbury Company, NASA, and the U.S. Army Laboratories to produce safe food for astronauts. Today, HACCP is recognized internationally by the Codex Alimentarius Commission and is widely used in food manufacturing, processing, catering, restaurants, fisheries, dairy industries, meat processing, and other food-related sectors.
+
+
+Objectives of HACCP
+
+The main objectives of HACCP are to:
+
+Prevent food safety hazards before they occur.
+
+Produce safe and high-quality food.
+
+Protect consumers from foodborne illnesses.
+
+Reduce product recalls and food waste.
+
+Comply with national and international food safety regulations.
+
+Improve consumer confidence in food products.
+
+Support international food trade.
+
+
+
+Importance of HACCP
+
+HACCP is important because it:
+
+Identifies hazards before they become problems.
+
+Reduces food contamination.
+
+Improves food quality.
+
+Minimizes production losses.
+
+Reduces inspection costs.
+
+Enhances customer satisfaction.
+
+Helps industries comply with regulatory requirements.
+
+Increases export opportunities.
+
+
+
+---
+
+Types of Food Hazards
+
+1. Biological Hazards
+
+These involve harmful microorganisms that can cause foodborne diseases.
+
+Examples include:
+
+Salmonella
+
+Escherichia coli (E. coli)
+
+Listeria monocytogenes
+
+Campylobacter
+
+Clostridium botulinum
+
+Staphylococcus aureus
+
+Aspergillus flavus (aflatoxin-producing mold)
+
+
+Sources include contaminated raw materials, poor hygiene, contaminated water, pests, and improper storage.
+
+
+---
+
+2. Chemical Hazards
+
+Chemical hazards include harmful substances that contaminate food.
+
+Examples include:
+
+Pesticide residues
+
+Veterinary drug residues
+
+Cleaning chemicals
+
+Food allergens
+
+Heavy metals (lead, mercury, cadmium)
+
+Mycotoxins (such as aflatoxins)
+
+Excess food additives
+
+
+
+---
+
+3. Physical Hazards
+
+Physical hazards are foreign materials that may injure consumers.
+
+Examples include:
+
+Glass fragments
+
+Stones
+
+Metal pieces
+
+Plastic fragments
+
+Wood splinters
+
+Hair
+
+Insect parts
+
+Bone fragments
+
+
+
+---
+
+The Seven Principles of HACCP
+
+Principle 1: Conduct a Hazard Analysis
+
+Identify all possible biological, chemical, and physical hazards associated with each stage of food production.
+
+Example:
+
+In maize processing, possible hazards include:
+
+Aflatoxin contamination
+
+Insect infestation
+
+Metal contamination
+
+Bacterial contamination
+
+
+The likelihood and severity of each hazard are evaluated.
+
+
+---
+
+Principle 2: Determine Critical Control Points (CCPs)
+
+A Critical Control Point (CCP) is a step where control can be applied to prevent, eliminate, or reduce a food safety hazard to an acceptable level.
+
+Examples include:
+
+Cooking
+
+Pasteurization
+
+Metal detection
+
+Refrigeration
+
+Drying grains before storage
+
+
+
+---
+
+Principle 3: Establish Critical Limits
+
+Critical limits are measurable standards that must be met at each CCP.
+
+Examples include:
+
+Minimum cooking temperature
+
+Maximum storage temperature
+
+Safe moisture content in grains
+
+Safe pH level
+
+Maximum aflatoxin concentration allowed by regulations
+
+
+
+---
+
+Principle 4: Establish Monitoring Procedures
+
+Monitoring ensures that each CCP remains under control.
+
+Monitoring may include:
+
+Temperature measurements
+
+Moisture testing
+
+Visual inspections
+
+Time recording
+
+Laboratory testing
+
+
+Monitoring should specify:
+
+What will be monitored
+
+How it will be monitored
+
+When monitoring will occur
+
+Who is responsible
+
+
+
+---
+
+Principle 5: Establish Corrective Actions
+
+Corrective actions are taken whenever monitoring indicates that a critical limit has not been met.
+
+Examples:
+
+Continue cooking until the correct temperature is reached.
+
+Reject contaminated raw materials.
+
+Re-dry grains with excessive moisture.
+
+Repair faulty equipment.
+
+Dispose of unsafe food products.
+
+
+
+---
+
+Principle 6: Establish Verification Procedures
+
+Verification confirms that the HACCP system is functioning effectively.
+
+Verification activities include:
+
+Internal audits
+
+Laboratory testing
+
+Equipment calibration
+
+Review of monitoring records
+
+Product sampling
+
+
+
+---
+
+Principle 7: Establish Documentation and Record Keeping
+
+Proper records demonstrate that the HACCP system is operating correctly.
+
+Important records include:
+
+Hazard analysis reports
+
+CCP monitoring records
+
+Corrective action reports
+
+Verification reports
+
+Staff training records
+
+Calibration records
+
+Supplier records
+
+
+
+---
+
+Prerequisite Programs (PRPs)
+
+Before implementing HACCP, food businesses should establish prerequisite programs such as:
+
+Good Agricultural Practices (GAP)
+
+Good Manufacturing Practices (GMP)
+
+Good Hygiene Practices (GHP)
+
+Sanitation Standard Operating Procedures (SSOP)
+
+Pest control
+
+Water quality management
+
+Employee hygiene training
+
+Equipment maintenance
+
+
+
+---
+
+HACCP Team
+
+A HACCP team should include experts from different departments, such as:
+
+Food Technologist
+
+Quality Assurance Officer
+
+Production Manager
+
+Maintenance Engineer
+
+Laboratory Analyst
+
+Microbiologist
+
+Procurement Officer
+
+
+
+---
+
+Benefits of HACCP
+
+Prevents foodborne diseases.
+
+Improves food quality and safety.
+
+Reduces production losses.
+
+Increases consumer confidence.
+
+Supports regulatory compliance.
+
+Improves export acceptance.
+
+Reduces product recalls.
+
+Promotes continuous improvement.
+
+
+
+---
+
+Limitations of HACCP
+
+High implementation costs.
+
+Requires trained personnel.
+
+Requires continuous monitoring.
+
+Extensive documentation is needed.
+
+Small businesses may face financial and technical challenges.
+
+Success depends on strong prerequisite programs.
+
+
+
+---
+
+Application of HACCP in Grain and Groundnut Processing
+
+For grains and groundnuts, HACCP helps control hazards such as aflatoxin contamination.
+
+Typical Critical Control Points include:
+
+Receiving raw materials (inspect for mold and damage).
+
+Drying (reduce moisture to safe levels, generally around 10–13% depending on the commodity and storage conditions).
+
+Storage (control humidity, pests, and temperature).
+
+Sorting and cleaning (remove damaged and moldy kernels).
+
+Packaging (use clean, dry, food-grade packaging).
+
+Distribution (protect products from moisture and contamination).
+
+
+
+---
+
+Conclusion
+
+HACCP is one of the most effective food safety management systems used worldwide. By focusing on prevention rather than relying only on testing finished products, it helps food industries identify hazards early, establish effective control measures, and consistently produce safe food. Successful implementation requires management commitment, trained personnel, proper documentation, and strong prerequisite programs. HACCP is an essential component of modern food safety systems and is widely recognized for protecting public health and supporting both local and international food trade.
