@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QualiFood AI — Offline Food Safety Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo-950:#12203B;
+    --indigo-800:#1B2E52;
+    --indigo-700:#233A66;
+    --paper:#F6F1E2;
+    --paper-dim:#EDE6D2;
+    --gold:#C9A227;
+    --gold-dim:#8f7419;
+    --green:#2D6A4F;
+    --green-bg:#E4F0E9;
+    --amber:#B9790A;
+    --amber-bg:#FBEED9;
+    --red:#A5281F;
+    --red-bg:#F7E2DF;
+    --ink:#22201D;
+    --ink-soft:#5B564C;
+    --line:#DCD3B8;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--indigo-950);
+    font-family:'IBM Plex Sans',sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    -webkit-tap-highlight-color:transparent;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  .shell{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    background:var(--paper);
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    box-shadow:0 0 60px rgba(0,0,0,0.35);
+  }
+  @media (min-width:900px){
+    body{padding:32px 0;}
+    .shell{min-height:calc(100vh - 64px); border-radius:22px; overflow:hidden;}
+  }
+
+  /* ---------- HEADER ---------- */
+  header.app-top{
+    background:var(--indigo-950);
+    color:var(--paper);
+    padding:18px 20px 16px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.app-top::after{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(201,162,39,0.07) 0 2px, transparent 2px 22px);
+    pointer-events:none;
+  }
+  .brand-row{display:flex; align-items:center; justify-content:space-between; position:relative; z-index:1;}
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{
+    width:38px;height:38px;border-radius:10px;
+    background:linear-gradient(135deg, var(--gold), #8f7419);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--indigo-950); font-size:17px;
+    flex:none;
+  }
+  .brand-name{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; letter-spacing:0.2px;}
+  .brand-sub{font-size:10.5px; color:#B9C2D6; text-transform:uppercase; letter-spacing:1.2px; margin-top:1px;}
+  .offline-pill{
+    display:flex; align-items:center; gap:6px;
+    background:rgba(45,106,79,0.25); border:1px solid rgba(97,183,145,0.5);
+    color:#9EE3BE; font-size:11px; font-weight:600;
+    padding:5px 10px; border-radius:999px; white-space:nowrap;
+  }
+  .offline-dot{width:7px;height:7px;border-radius:50%;background:#4ADE80; box-shadow:0 0 0 3px rgba(74,222,128,0.25);}
+
+  /* ---------- MAIN CONTENT ---------- */
+  main{
+    flex:1;
+    padding:20px 20px 100px;
+    overflow-y:auto;
+  }
+  .page{display:none; animation:fadeIn .25s ease;}
+  .page.active{display:block;}
+  @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  h1.page-title{
+    font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; margin:0 0 4px;
+    color:var(--indigo-950);
+  }
+  p.page-sub{color:var(--ink-soft); font-size:13.5px; margin:0 0 20px; line-height:1.5;}
+
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    padding:16px 16px; margin-bottom:14px;
+  }
+  .card-title{font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:15px; margin:0 0 10px; color:var(--indigo-950);}
+
+  /* home hero */
+  .hero-card{
+    background:linear-gradient(160deg, var(--indigo-950), var(--indigo-700));
+    color:var(--paper); border-radius:16px; padding:20px; margin-bottom:16px; position:relative; overflow:hidden;
+  }
+  .hero-eyebrow{font-size:10.5px; letter-spacing:1.4px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:8px;}
+  .hero-card h2{font-family:'Space Grotesk',sans-serif; font-size:19px; line-height:1.35; margin:0 0 10px; font-weight:600;}
+  .hero-card p{font-size:12.5px; color:#C7CEDD; margin:0; line-height:1.55;}
+  .stat-row{display:flex; gap:10px; margin-top:16px;}
+  .stat-box{flex:1; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:10px 12px;}
+  .stat-num{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:18px; color:var(--gold);}
+  .stat-label{font-size:10px; color:#B9C2D6; margin-top:2px;}
+
+  .quick-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:6px;}
+  .quick-btn{
+    background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 14px;
+    display:flex; flex-direction:column; align-items:flex-start; gap:8px;
+    cursor:pointer; text-align:left; font-family:inherit;
+  }
+  .quick-btn:active{transform:scale(0.98);}
+  .quick-icon{width:34px;height:34px;border-radius:9px; display:flex;align-items:center;justify-content:center; font-size:17px;}
+  .quick-btn .qb-title{font-weight:600; font-size:13.5px; color:var(--indigo-950);}
+  .quick-btn .qb-sub{font-size:11px; color:var(--ink-soft); line-height:1.4;}
+
+  /* ---------- NAV ---------- */
+  nav.tabbar{
+    position:absolute; left:0; right:0; bottom:0;
+    background:rgba(255,255,255,0.97); backdrop-filter:blur(6px);
+    border-top:1px solid var(--line);
+    display:flex; justify-content:space-around; padding:8px 4px 10px;
+  }
+  .tab-btn{
+    background:none; border:none; display:flex; flex-direction:column; align-items:center; gap:3px;
+    color:#9A927A; font-family:inherit; font-size:10px; font-weight:600; cursor:pointer; padding:4px 8px; border-radius:10px;
+  }
+  .tab-btn .tab-icon{font-size:19px; line-height:1;}
+  .tab-btn.active{color:var(--indigo-950);}
+  .tab-btn.active .tab-icon{filter:none;}
+  .tab-btn:focus-visible, .quick-btn:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible{
+    outline:2px solid var(--gold); outline-offset:2px;
+  }
+
+  /* ---------- FORM ELEMENTS ---------- */
+  label.field-label{display:block; font-size:12.5px; font-weight:600; color:var(--indigo-950); margin:14px 0 6px;}
+  label.field-label:first-child{margin-top:0;}
+  select, input[type=number]{
+    width:100%; padding:11px 12px; border-radius:10px; border:1px solid var(--line);
+    font-family:'IBM Plex Sans',sans-serif; font-size:14px; background:#fff; color:var(--ink);
+  }
+  input[type=range]{width:100%; accent-color:var(--indigo-800);}
+  .range-value{font-family:'IBM Plex Mono',monospace; font-weight:600; color:var(--indigo-950); font-size:14px;}
+  .check-row{
+    display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--paper-dim);
+  }
+  .check-row:last-child{border-bottom:none;}
+  .check-row input[type=checkbox]{width:19px;height:19px; margin-top:1px; accent-color:var(--indigo-800); flex:none;}
+  .check-text{font-size:13px; line-height:1.4; color:var(--ink);}
+  .check-text .critical-tag{
+    display:inline-block; font-size:9.5px; font-weight:700; color:var(--red); background:var(--red-bg);
+    padding:1px 6px; border-radius:5px; margin-left:6px; letter-spacing:0.3px; vertical-align:middle;
+  }
+  .primary-btn{
+    width:100%; background:var(--indigo-950); color:var(--paper); border:none; border-radius:11px;
+    padding:14px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14.5px; cursor:pointer; margin-top:8px;
+  }
+  .primary-btn:active{background:var(--indigo-800);}
+  .ghost-btn{
+    width:100%; background:transparent; color:var(--indigo-950); border:1.5px solid var(--indigo-950); border-radius:11px;
+    padding:12px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13.5px; cursor:pointer; margin-top:8px;
+  }
+
+  /* ---------- GAUGE ---------- */
+  .gauge-wrap{display:flex; flex-direction:column; align-items:center; padding:6px 0 4px;}
+  .gauge{position:relative; width:220px; height:112px; overflow:hidden;}
+  .gauge-ring{position:absolute; top:0; left:0; width:220px; height:220px; border-radius:50%;
+    background:conic-gradient(from 180deg, var(--green) 0deg 60deg, var(--amber) 60deg 120deg, var(--red) 120deg 180deg, transparent 180deg 360deg);
+  }
+  .gauge-hole{position:absolute; top:26px; left:26px; width:168px; height:168px; border-radius:50%; background:#fff;}
+  .gauge-needle{
+    position:absolute; bottom:0; left:50%; width:4px; height:92px; background:var(--indigo-950);
+    transform-origin:bottom center; transform:translateX(-50%) rotate(-90deg); border-radius:3px;
+    transition:transform 0.7s cubic-bezier(.34,1.56,.64,1);
+  }
+  .gauge-pivot{position:absolute; bottom:-9px; left:50%; width:18px; height:18px; border-radius:50%; background:var(--indigo-950); transform:translateX(-50%);}
+  .gauge-label{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; margin-top:6px;}
+  .gauge-score{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); margin-top:2px;}
+
+  .result-banner{border-radius:12px; padding:14px 15px; margin-top:14px; font-size:13px; line-height:1.55;}
+  .result-banner.low{background:var(--green-bg); color:var(--green); border:1px solid #b9dcc7;}
+  .result-banner.med{background:var(--amber-bg); color:var(--amber); border:1px solid #efd4a0;}
+  .result-banner.high{background:var(--red-bg); color:var(--red); border:1px solid #e8bcb6;}
+  .result-banner b{display:block; font-size:13.5px; margin-bottom:4px; font-family:'Space Grotesk',sans-serif;}
+
+  .badge{display:inline-block; font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:999px;}
+  .badge.low{background:var(--green-bg); color:var(--green);}
+  .badge.med{background:var(--amber-bg); color:var(--amber);}
+  .badge.high{background:var(--red-bg); color:var(--red);}
+
+  /* pathogen list */
+  .path-item{border:1px solid var(--line); border-radius:12px; margin-bottom:10px; overflow:hidden; background:#fff;}
+  .path-head{padding:13px 14px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;}
+  .path-head-left{display:flex; align-items:center; gap:10px;}
+  .path-emoji{font-size:19px;}
+  .path-name{font-weight:600; font-size:13.5px; color:var(--indigo-950); font-family:'Space Grotesk',sans-serif;}
+  .path-name-en{font-size:10.5px; color:var(--ink-soft); font-style:italic;}
+  .path-chevron{transition:transform .2s; color:var(--ink-soft);}
+  .path-item.open .path-chevron{transform:rotate(180deg);}
+  .path-body{max-height:0; overflow:hidden; transition:max-height .25s ease; padding:0 14px;}
+  .path-item.open .path-body{max-height:400px; padding:0 14px 14px;}
+  .path-body-inner{border-top:1px solid var(--paper-dim); padding-top:10px; font-size:12.5px; line-height:1.6; color:var(--ink);}
+  .path-body-inner b{color:var(--indigo-950);}
+
+  .search-box{position:relative; margin-bottom:14px;}
+  .search-box input{width:100%; padding:11px 14px; border-radius:10px; border:1px solid var(--line); font-size:14px; font-family:inherit;}
+
+  /* log */
+  .log-item{background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;}
+  .log-left .log-title{font-weight:600; font-size:13.5px; color:var(--indigo-950);}
+  .log-left .log-meta{font-size:11px; color:var(--ink-soft); margin-top:2px;}
+  .log-del{background:none; border:none; color:var(--ink-soft); font-size:16px; cursor:pointer; padding:4px 6px;}
+  .empty-state{text-align:center; padding:50px 20px; color:var(--ink-soft);}
+  .empty-state .ee-icon{font-size:34px; margin-bottom:10px;}
+  .empty-state p{font-size:13px; line-height:1.5; margin:0;}
+
+  .cat-chip-row{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:16px;}
+  .cat-chip{flex:none; padding:8px 14px; border-radius:999px; border:1px solid var(--line); background:#fff; font-size:12.5px; font-weight:600; color:var(--ink-soft); cursor:pointer; white-space:nowrap;}
+  .cat-chip.active{background:var(--indigo-950); color:var(--paper); border-color:var(--indigo-950);}
+
+  .progress-track{height:8px; border-radius:5px; background:var(--paper-dim); overflow:hidden; margin:10px 0 4px;}
+  .progress-fill{height:100%; background:var(--indigo-800); border-radius:5px; transition:width .3s;}
+  .progress-text{font-size:11px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="app-top">
+    <div class="brand-row">
+      <div class="brand">
+        <div class="brand-mark">QF</div>
+        <div>
+          <div class="brand-name">QualiFood AI</div>
+          <div class="brand-sub">Food Safety Intelligence</div>
+        </div>
+      </div>
+      <div class="offline-pill"><span class="offline-dot"></span>Offline</div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ HOME ============ -->
+    <section class="page active" data-page="home">
+      <div class="hero-card">
+        <div class="hero-eyebrow">No Internet Required · Works Fully Offline</div>
+        <h2>Assess food safety instantly, even without a network connection.</h2>
+        <p>QualiFood AI is a digital tool that helps food processors, QA officers, and inspectors detect risk, follow HACCP practices, and protect public health — in markets, factories, or at home.</p>
+        <div class="stat-row">
+          <div class="stat-box"><div class="stat-num" id="statInspections">0</div><div class="stat-label">Inspections done</div></div>
+          <div class="stat-box"><div class="stat-num">5</div><div class="stat-label">Food Categories</div></div>
+          <div class="stat-box"><div class="stat-num">7</div><div class="stat-label">Pathogens</div></div>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        <button class="quick-btn" onclick="goPage('inspect')">
+          <div class="quick-icon" style="background:var(--green-bg);">✅</div>
+          <div class="qb-title">Start Inspection</div>
+          <div class="qb-sub">HACCP checklist</div>
+        </button>
+        <button class="quick-btn" onclick="goPage('calc')">
+          <div class="quick-icon" style="background:var(--amber-bg);">🌡️</div>
+          <div class="qb-title">Risk Calculator</div>
+          <div class="qb-sub">Shelf-life & risk score</div>
+        </button>
+        <button class="quick-btn" onclick="goPage('pathogens')">
+          <div class="quick-icon" style="background:var(--red-bg);">🦠</div>
+          <div class="qb-title">Pathogens</div>
+          <div class="qb-sub">Foodborne pathogens</div>
+        </button>
+        <button class="quick-btn" onclick="goPage('log')">
+          <div class="quick-icon" style="background:#E5E9F5;">🗂️</div>
+          <div class="qb-title">Activity Log</div>
+          <div class="qb-sub">Inspection history</div>
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎯 About This App</div>
+        <p style="font-size:12.5px; color:var(--ink-soft); line-height:1.6; margin:0;">QualiFood AI was built specifically for African communities — where internet access isn't always available in markets, towns, or factories. Every calculation and piece of data runs directly on your device, no server or internet connection required.</p>
+      </div>
+    </section>
+
+    <!-- ============ INSPECT (HACCP CHECKLIST) ============ -->
+    <section class="page" data-page="inspect">
+      <h1 class="page-title">HACCP Inspection Checklist</h1>
+      <p class="page-sub">Choose a food category, then review each hygiene and quality control item.</p>
+
+      <div class="cat-chip-row" id="inspectCats"></div>
+
+      <div class="card" id="checklistCard">
+        <div class="card-title" id="checklistTitle">—</div>
+        <div class="progress-track"><div class="progress-fill" id="checklistProgress" style="width:0%"></div></div>
+        <div class="progress-text" id="checklistProgressText">0 / 0 completed</div>
+        <div id="checklistItems" style="margin-top:8px;"></div>
+      </div>
+
+      <div id="inspectResult"></div>
+      <button class="primary-btn" onclick="saveInspection()">💾 Save Inspection Result</button>
+    </section>
+
+    <!-- ============ CALCULATOR ============ -->
+    <section class="page" data-page="calc">
+      <h1 class="page-title">Food Risk Calculator</h1>
+      <p class="page-sub">Enter storage details to estimate the spoilage risk level.</p>
+
+      <div class="card">
+        <label class="field-label">Food Type</label>
+        <select id="calcCategory">
+          <option value="meat">Meat & Fish</option>
+          <option value="dairy">Dairy</option>
+          <option value="grain">Grains & Nuts</option>
+          <option value="produce">Fruits / Vegetables (Produce)</option>
+          <option value="processed">Processed Food</option>
+        </select>
+
+        <label class="field-label">Storage Temperature: <span class="range-value" id="tempVal">25°C</span></label>
+        <input type="range" id="calcTemp" min="-10" max="45" value="25">
+
+        <label class="field-label">Storage Duration (hours): <span class="range-value" id="durVal">6</span></label>
+        <input type="range" id="calcDuration" min="0" max="120" value="6">
+
+        <label class="field-label">Packaging Condition</label>
+        <select id="calcPackaging">
+          <option value="good">Good, properly sealed</option>
+          <option value="poor">Poor / open</option>
+        </select>
+
+        <label class="field-label">Visible Signs (select all that apply)</label>
+        <div class="check-row"><input type="checkbox" id="signSmell"><span class="check-text">Odd smell</span></div>
+        <div class="check-row"><input type="checkbox" id="signColor"><span class="check-text">Discoloration</span></div>
+        <div class="check-row"><input type="checkbox" id="signMold"><span class="check-text">Visible mold</span></div>
+        <div class="check-row"><input type="checkbox" id="signSlime"><span class="check-text">Slime / liquid leakage</span></div>
+
+        <button class="primary-btn" onclick="runCalc()">⚙️ Calculate Risk</button>
+      </div>
+
+      <div class="card" id="gaugeCard" style="display:none;">
+        <div class="gauge-wrap">
+          <div class="gauge">
+            <div class="gauge-ring"></div>
+            <div class="gauge-hole"></div>
+            <div class="gauge-needle" id="gaugeNeedle"></div>
+            <div class="gauge-pivot"></div>
+          </div>
+          <div class="gauge-label" id="gaugeLabel">—</div>
+          <div class="gauge-score" id="gaugeScore">Risk score: 0/100</div>
+        </div>
+        <div id="calcResultBanner"></div>
+        <button class="ghost-btn" onclick="saveCalc()">💾 Save Calculation Result</button>
+      </div>
+    </section>
+
+    <!-- ============ PATHOGENS ============ -->
+    <section class="page" data-page="pathogens">
+      <h1 class="page-title">Foodborne Pathogens</h1>
+      <p class="page-sub">Common food-linked pathogens relevant to Nigeria and Africa.</p>
+      <div class="search-box">
+        <input type="text" id="pathSearch" placeholder="Search a pathogen..." oninput="renderPathogens()">
+      </div>
+      <div id="pathList"></div>
+    </section>
+
+    <!-- ============ AI CHAT (RAG) ============ -->
+    <section class="page" data-page="ai">
+      <h1 class="page-title">Ask AI</h1>
+      <p class="page-sub">A small LLM running on your device (Ollama) + RAG over food safety data. Requires the Python backend running at localhost:8000.</p>
+      <div class="card" id="aiStatusCard" style="display:flex; align-items:center; gap:8px;">
+        <span class="offline-dot" id="aiStatusDot" style="background:#c9a227;"></span>
+        <span id="aiStatusText" style="font-size:12.5px; color:var(--ink-soft);">Checking backend...</span>
+      </div>
+      <div id="chatWindow" style="display:flex; flex-direction:column; gap:10px; margin-bottom:14px;"></div>
+      <div class="card" style="position:sticky; bottom:0;">
+        <label class="field-label">Type your question</label>
+        <textarea id="chatInput" rows="2" placeholder="e.g. why do my groundnuts get moldy?" style="width:100%; padding:11px 12px; border-radius:10px; border:1px solid var(--line); font-family:'IBM Plex Sans',sans-serif; font-size:14px; resize:vertical;"></textarea>
+        <button class="primary-btn" onclick="sendChat()">📨 Send</button>
+      </div>
+    </section>
+
+    <!-- ============ LOG ============ -->
+    <section class="page" data-page="log">
+      <h1 class="page-title">Activity Log</h1>
+      <p class="page-sub">Inspection and calculation results saved during this session.</p>
+      <div id="logList"></div>
+    </section>
+
+  </main>
+
+  <nav class="tabbar">
+    <button class="tab-btn active" data-tab="home" onclick="goPage('home')"><span class="tab-icon">🏠</span>Home</button>
+    <button class="tab-btn" data-tab="inspect" onclick="goPage('inspect')"><span class="tab-icon">✅</span>Inspect</button>
+    <button class="tab-btn" data-tab="calc" onclick="goPage('calc')"><span class="tab-icon">🌡️</span>Risk</button>
+    <button class="tab-btn" data-tab="pathogens" onclick="goPage('pathogens')"><span class="tab-icon">🦠</span>Pathogens</button>
+    <button class="tab-btn" data-tab="ai" onclick="goPage('ai')"><span class="tab-icon">🤖</span>AI</button>
+    <button class="tab-btn" data-tab="log" onclick="goPage('log')"><span class="tab-icon">🗂️</span>Log</button>
+  </nav>
+</div>
+
+<script>
+/* ---------------- STATE (in-memory only, no localStorage per offline-demo constraint) ---------------- */
+const state = {
+  inspectionLog: [],
+  activeCategory: 'meat',
+  checklistState: {}
+};
+
+/* ---------------- NAVIGATION ---------------- */
+function goPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active', p.dataset.page===name));
+  document.querySelectorAll('.tab-btn').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
+  if(name==='inspect') renderChecklist();
+  if(name==='pathogens') renderPathogens();
+  if(name==='log') renderLog();
+  if(name==='ai') checkAiHealth();
+}
+
+/* ---------------- HACCP CHECKLIST DATA ---------------- */
+const categories = [
+  {id:'meat', label:'Meat/Fish'},
+  {id:'dairy', label:'Dairy'},
+  {id:'grain', label:'Grains/Nuts'},
+  {id:'produce', label:'Produce'},
+  {id:'processed', label:'Processed'}
+];
+
+const checklists = {
+  meat:[
+    {t:'Meat stored below 4°C or frozen', c:true},
+    {t:'Raw meat kept separate from other foods (no cross-contamination)', c:true},
+    {t:'Staff wearing gloves and clean clothing', c:false},
+    {t:'Separate knife/cutting board used for raw meat', c:true},
+    {t:'Meat cooked to a safe internal temperature (≥70°C)', c:true},
+    {t:'No unusual odor or discoloration', c:true},
+    {t:'Receiving date and use-by date recorded (labeling/dating)', c:false},
+    {t:'Storage area free of pests or rodents', c:false}
+  ],
+  dairy:[
+    {t:'Dairy products (milk/cheese) stored below 4°C', c:true},
+    {t:'Expiry date checked before sale', c:true},
+    {t:'No visible mold or unusual sour smell', c:true},
+    {t:'Containers properly sealed after opening', c:false},
+    {t:'Cold chain maintained during transport', c:true},
+    {t:'Pasteurization/sterilization equipment functioning correctly', c:false}
+  ],
+  grain:[
+    {t:'Grain/groundnuts stored in a dry environment (moisture control)', c:true},
+    {t:'No visible mold or suspicious yellow discoloration (aflatoxin risk)', c:true},
+    {t:'Storage checked for pests or insects', c:true},
+    {t:'Clean sacks/containers used, not old ones with hidden contamination', c:false},
+    {t:'Storage area has adequate ventilation', c:false}
+  ],
+  produce:[
+    {t:'Fruits/vegetables washed with clean water before sale', c:true},
+    {t:'No rotten parts or signs of decay', c:true},
+    {t:'Stored away from chemicals or pesticides', c:true},
+    {t:'Storage temperature controlled to slow spoilage', c:false},
+    {t:'New stock kept separate from old (FIFO — first in, first out)', c:false}
+  ],
+  processed:[
+    {t:'Label checked for manufacture and expiry dates', c:true},
+    {t:'Packaging not opened or damaged before sale', c:true},
+    {t:'Stored per instructions printed on packaging (temperature, location)', c:true},
+    {t:'No unexplained bulging or shape change in container', c:false},
+    {t:'Batches carry a traceability code', c:false}
+  ]
+};
+
+function renderInspectCats(){
+  const row = document.getElementById('inspectCats');
+  row.innerHTML = categories.map(c=>`<button class="cat-chip ${c.id===state.activeCategory?'active':''}" onclick="setCategory('${c.id}')">${c.label}</button>`).join('');
+}
+function setCategory(id){
+  state.activeCategory = id;
+  renderInspectCats();
+  renderChecklist();
+}
+function renderChecklist(){
+  renderInspectCats();
+  const items = checklists[state.activeCategory];
+  const catLabel = categories.find(c=>c.id===state.activeCategory).label;
+  document.getElementById('checklistTitle').textContent = 'Checklist: ' + catLabel;
+  if(!state.checklistState[state.activeCategory]){
+    state.checklistState[state.activeCategory] = items.map(()=>false);
+  }
+  const checked = state.checklistState[state.activeCategory];
+  const html = items.map((it,i)=>`
+    <div class="check-row">
+      <input type="checkbox" id="chk_${i}" ${checked[i]?'checked':''} onchange="toggleCheck(${i})">
+      <span class="check-text">${it.t}${it.c?'<span class="critical-tag">CRITICAL</span>':''}</span>
+    </div>`).join('');
+  document.getElementById('checklistItems').innerHTML = html;
+  updateChecklistProgress();
+}
+function toggleCheck(i){
+  state.checklistState[state.activeCategory][i] = document.getElementById('chk_'+i).checked;
+  updateChecklistProgress();
+}
+function updateChecklistProgress(){
+  const items = checklists[state.activeCategory];
+  const checked = state.checklistState[state.activeCategory];
+  const total = items.length;
+  const done = checked.filter(Boolean).length;
+  const pct = Math.round((done/total)*100);
+  document.getElementById('checklistProgress').style.width = pct+'%';
+  document.getElementById('checklistProgressText').textContent = `${done} / ${total} completed (${pct}%)`;
+
+  const failedCritical = items.some((it,i)=> it.c && !checked[i]);
+  const box = document.getElementById('inspectResult');
+  if(done===0){ box.innerHTML=''; return; }
+  let level='low', msg='';
+  if(failedCritical){
+    level='high';
+    msg = '<b>⚠️ High Risk</b>A critical control point has not been checked off yet. Sale/use is not advised until this is corrected.';
+  } else if(pct<100){
+    level='med';
+    msg = '<b>🟡 Continue Reviewing</b>Some items still need checking before full confirmation.';
+  } else {
+    level='low';
+    msg = '<b>✅ Fully Complete</b>All checklist items have been reviewed. The food meets hygiene and quality standards for this round.';
+  }
+  box.innerHTML = `<div class="result-banner ${level}">${msg}</div>`;
+}
+function saveInspection(){
+  const items = checklists[state.activeCategory];
+  const checked = state.checklistState[state.activeCategory] || [];
+  const done = checked.filter(Boolean).length;
+  const failedCritical = items.some((it,i)=> it.c && !checked[i]);
+  const level = failedCritical ? 'high' : (done===items.length ? 'low' : 'med');
+  const catLabel = categories.find(c=>c.id===state.activeCategory).label;
+  state.inspectionLog.unshift({
+    type:'Inspection',
+    detail: catLabel + ' — ' + done + '/' + items.length + ' completed',
+    level, time: new Date().toLocaleString('en-GB')
+  });
+  document.getElementById('statInspections').textContent = state.inspectionLog.length;
+  goPage('log');
+}
+
+/* ---------------- CALCULATOR ---------------- */
+const tempSlider = document.getElementById('calcTemp');
+const durSlider = document.getElementById('calcDuration');
+tempSlider.addEventListener('input', ()=> document.getElementById('tempVal').textContent = tempSlider.value+'°C');
+durSlider.addEventListener('input', ()=> document.getElementById('durVal').textContent = durSlider.value);
+
+const perishability = { meat:1.0, dairy:0.9, produce:0.6, processed:0.35, grain:0.2 };
+
+let lastCalc = null;
+
+function runCalc(){
+  const cat = document.getElementById('calcCategory').value;
+  const temp = parseFloat(tempSlider.value);
+  const dur = parseFloat(durSlider.value);
+  const packaging = document.getElementById('calcPackaging').value;
+  const signs = [signSmell, signColor, signMold, signSlime].map(el=>el.checked);
+  const anySign = signs.some(Boolean);
+
+  // temperature danger zone weighting (5°C - 60°C = growth zone, peak risk ~37°C)
+  let tempFactor = 0;
+  if(temp>=5 && temp<=60){
+    const distFromPeak = Math.abs(temp-37);
+    tempFactor = Math.max(0, 1 - distFromPeak/40);
+  } else if(temp>60){
+    tempFactor = 0.05;
+  } else {
+    tempFactor = 0.02;
+  }
+
+  const base = perishability[cat];
+  let score = (tempFactor * 55 * base) + (Math.min(dur,72)/72 * 30 * base);
+  if(packaging==='poor') score += 8;
+  if(anySign) score = Math.max(score, 82) + signs.filter(Boolean).length*4;
+  score = Math.min(100, Math.round(score));
+
+  let level, label;
+  if(score < 34){ level='low'; label='Low Risk'; }
+  else if(score < 67){ level='med'; label='Moderate Risk'; }
+  else { level='high'; label='High Risk'; }
+
+  const angle = -90 + (score/100)*180;
+  document.getElementById('gaugeCard').style.display='block';
+  document.getElementById('gaugeNeedle').style.transform = `translateX(-50%) rotate(${angle}deg)`;
+  document.getElementById('gaugeLabel').textContent = label;
+  document.getElementById('gaugeLabel').style.color = level==='low'?'var(--green)':level==='med'?'var(--amber)':'var(--red)';
+  document.getElementById('gaugeScore').textContent = `Risk score: ${score}/100`;
+
+  const advice = {
+    low: '<b>✅ Safe to use</b>This food currently shows low risk. Continue proper temperature and hygiene control.',
+    med: '<b>🟡 Use with caution</b>Consider using this food soon, or cook it thoroughly before eating. Monitoring storage conditions is important now.',
+    high: '<b>🔴 Do not consume</b>Both visible signs and time/temperature calculations point to a high risk of foodborne illness. Disposal is recommended.'
+  };
+  document.getElementById('calcResultBanner').innerHTML = `<div class="result-banner ${level}">${advice[level]}</div>`;
+
+  lastCalc = {cat, temp, dur, packaging, score, level, label};
+}
+function saveCalc(){
+  if(!lastCalc) return;
+  const catLabels = {meat:'Meat/Fish', dairy:'Dairy', grain:'Grains/Nuts', produce:'Produce', processed:'Processed'};
+  state.inspectionLog.unshift({
+    type:'Risk Calculation',
+    detail: `${catLabels[lastCalc.cat]} — ${lastCalc.temp}°C, ${lastCalc.dur}h — Score ${lastCalc.score}`,
+    level: lastCalc.level, time: new Date().toLocaleString('en-GB')
+  });
+  document.getElementById('statInspections').textContent = state.inspectionLog.length;
+  goPage('log');
+}
+
+/* ---------------- PATHOGENS ---------------- */
+const pathogens = [
+  {emoji:'🍗', name:'Salmonella', en:'Salmonella spp.', sources:'Raw meat, poultry, eggs, unpasteurized milk.', symptoms:'Diarrhea, fever, abdominal cramps, vomiting — onset within 6-72 hours.', prevention:'Cook meat/poultry thoroughly (internal temp ≥70°C), separate raw from cooked food, wash hands regularly.'},
+  {emoji:'💧', name:'E. coli O157:H7', en:'Escherichia coli', sources:'Undercooked beef, unwashed vegetables, contaminated water.', symptoms:'Bloody diarrhea, severe abdominal pain, can cause kidney failure in children.', prevention:'Cook meat thoroughly, wash vegetables with clean water, avoid untreated water.'},
+  {emoji:'🧀', name:'Listeria', en:'Listeria monocytogenes', sources:'Unpasteurized dairy, soft cheeses, ready-to-eat processed meats.', symptoms:'Fever, muscle aches, particularly dangerous for pregnant women and infants.', prevention:'Use pasteurized dairy products, store below 4°C.'},
+  {emoji:'🍚', name:'Staphylococcus aureus', en:'S. aureus', sources:'Food handled by hand after cooking, then left at room temperature too long.', symptoms:'Sudden vomiting, nausea, abdominal pain within 1-6 hours.', prevention:'Wash hands before handling food, don\'t leave cooked food out for more than 2 hours.'},
+  {emoji:'🥜', name:'Aflatoxin (Aspergillus flavus)', en:'Mold toxin', sources:'Groundnuts, maize, and grains stored in humid conditions — a major concern in Nigeria/Kano.', symptoms:'Long-term liver damage; large doses can cause acute poisoning.', prevention:'Dry grain/groundnuts thoroughly before storage, store in a ventilated space, discard anything moldy.'},
+  {emoji:'🚰', name:'Vibrio cholerae', en:'Cholera bacteria', sources:'Contaminated water and food washed/prepared with unclean water.', symptoms:'Severe watery diarrhea, rapid dehydration.', prevention:'Use clean or boiled water, wash hands with soap, maintain environmental hygiene.'},
+  {emoji:'🥫', name:'Clostridium botulinum', en:'Botulism bacteria', sources:'Canned food improperly sealed or with a bulging container.', symptoms:'Muscle weakness, breathing and vision problems — extremely dangerous.', prevention:'Never eat bulging or odd-smelling canned food, maintain proper canning temperature control.'}
+];
+
+function renderPathogens(){
+  const q = (document.getElementById('pathSearch').value||'').toLowerCase();
+  const filtered = pathogens.filter(p=> p.name.toLowerCase().includes(q) || p.en.toLowerCase().includes(q) || p.sources.toLowerCase().includes(q));
+  const list = document.getElementById('pathList');
+  if(filtered.length===0){
+    list.innerHTML = `<div class="empty-state"><div class="ee-icon">🔍</div><p>No results found for "${q}"</p></div>`;
+    return;
+  }
+  list.innerHTML = filtered.map((p,i)=>`
+    <div class="path-item" id="path_${i}">
+      <div class="path-head" onclick="togglePath(${i})">
+        <div class="path-head-left">
+          <div class="path-emoji">${p.emoji}</div>
+          <div><div class="path-name">${p.name}</div><div class="path-name-en">${p.en}</div></div>
+        </div>
+        <div class="path-chevron">▾</div>
+      </div>
+      <div class="path-body">
+        <div class="path-body-inner">
+          <div><b>Common food sources:</b> ${p.sources}</div><br>
+          <div><b>Symptoms:</b> ${p.symptoms}</div><br>
+          <div><b>Prevention:</b> ${p.prevention}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function togglePath(i){
+  document.getElementById('path_'+i).classList.toggle('open');
+}
+
+/* ---------------- AI CHAT (RAG BACKEND) ---------------- */
+const AI_BACKEND = 'http://localhost:8000';
+
+async function checkAiHealth(){
+  const dot = document.getElementById('aiStatusDot');
+  const text = document.getElementById('aiStatusText');
+  try{
+    const res = await fetch(AI_BACKEND + '/health');
+    const data = await res.json();
+    dot.style.background = '#2D6A4F';
+    text.textContent = `Backend is running ✅ (model: ${data.model})`;
+  }catch(e){
+    dot.style.background = '#A5281F';
+    text.textContent = 'Backend not reachable. Make sure you run "uvicorn app:app --port 8000" in your terminal.';
+  }
+}
+
+function addChatBubble(role, text){
+  const win = document.getElementById('chatWindow');
+  const bubble = document.createElement('div');
+  bubble.style.cssText = role==='user'
+    ? 'align-self:flex-end; background:var(--indigo-950); color:var(--paper); padding:10px 14px; border-radius:12px 12px 2px 12px; max-width:85%; font-size:13.5px; line-height:1.5;'
+    : 'align-self:flex-start; background:#fff; border:1px solid var(--line); color:var(--ink); padding:10px 14px; border-radius:12px 12px 12px 2px; max-width:85%; font-size:13.5px; line-height:1.5; white-space:pre-wrap;';
+  bubble.textContent = text;
+  win.appendChild(bubble);
+  win.scrollIntoView({behavior:'smooth', block:'end'});
+  return bubble;
+}
+
+async function sendChat(){
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if(!msg) return;
+  addChatBubble('user', msg);
+  input.value = '';
+  const loadingBubble = addChatBubble('ai', 'Thinking...');
+
+  try{
+    const res = await fetch(AI_BACKEND + '/chat', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({message: msg})
+    });
+    if(!res.ok) throw new Error('Server error');
+    const data = await res.json();
+    loadingBubble.textContent = data.answer + (data.sources.length ? `\n\n📎 Source: ${data.sources.join(', ')}` : '');
+  }catch(e){
+    loadingBubble.textContent = '⚠️ Could not connect to the backend. Make sure Ollama and uvicorn are running on your computer (see README.md).';
+  }
+}
+
+/* ---------------- LOG ---------------- */
+function renderLog(){
+  const list = document.getElementById('logList');
+  if(state.inspectionLog.length===0){
+    list.innerHTML = `<div class="empty-state"><div class="ee-icon">🗂️</div><p>No activity yet.<br>Run an inspection or risk calculation to get started.</p></div>`;
+    return;
+  }
+  list.innerHTML = state.inspectionLog.map((l,i)=>`
+    <div class="log-item">
+      <div class="log-left">
+        <div class="log-title">${l.type} <span class="badge ${l.level}" style="margin-left:6px;">${l.level==='low'?'SAFE':l.level==='med'?'CAUTION':'RISK'}</span></div>
+        <div class="log-meta">${l.detail}</div>
+        <div class="log-meta">${l.time}</div>
+      </div>
+      <button class="log-del" onclick="deleteLog(${i})" aria-label="Delete">✕</button>
+    </div>`).join('');
+}
+function deleteLog(i){
+  state.inspectionLog.splice(i,1);
+  document.getElementById('statInspections').textContent = state.inspectionLog.length;
+  renderLog();
+}
+
+/* ---------------- INIT ---------------- */
+renderInspectCats();
+renderChecklist();
+renderPathogens();
+</script>
+</body>
+</html>
