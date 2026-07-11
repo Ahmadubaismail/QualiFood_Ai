@@ -4,20 +4,22 @@ This file explains how to run a real on-device LLM + RAG on your computer, so Qu
 
 ## What's Included
 
-```
 qualifood-rag/
 ├── knowledge_base/          # Food safety/agriculture reference data (.txt files)
 │   ├── aflatoxin.txt
 │   ├── haccp_basics.txt
 │   ├── postharvest_storage.txt
 │   ├── foodborne_pathogens.txt
-│   └── cold_chain.txt
+│   ├── cold_chain.txt
+│   ├── food_labeling_packaging.txt
+│   ├── market_food_safety.txt
+│   ├── water_safety.txt
+│   └── meat_fish_hygiene.txt
 ├── rag_engine.py             # ChromaDB retrieval logic
 ├── app.py                    # FastAPI server (RAG + Ollama)
 ├── requirements.txt
 ├── qualifood-ai.html         # Frontend (now includes the "Ask AI" tab)
 └── README.md
-```
 
 ## Step-by-Step Setup
 
