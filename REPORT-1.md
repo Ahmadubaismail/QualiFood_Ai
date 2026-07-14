@@ -4,7 +4,7 @@
 **Domain:** Agriculture (Food Safety & Post-Harvest Loss)
 **Repository:** https://github.com/Ahmadubaismail/QualiFood_Ai
 
----
+---Watch the demo video here: https://youtube.com/shorts/JVFOOYJo1qQ?si=MjdSiZ8kIlm5xPaU
 
 ## 1. Problem Definition and Context
 
